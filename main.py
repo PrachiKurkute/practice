@@ -33,8 +33,8 @@ class MainHandler(webapp2.RequestHandler):
 			html = html + '<center><h1>Voting Website</h1></center>'
 			html = html + userString
 			html = html + '<form action="/mainhandlerdecide" method="post">'
-			html = html + 'Enter First Name: <input type="text" name="firstName"><br>'
-			html = html + 'Enter Last Name: <input type="text" name="lastName"><br>'
+			html = html + 'Enter your First Name: <input type="text" name="firstName"><br>'
+			html = html + 'Enter your Last Name: <input type="text" name="lastName"><br>'
 			html = html + '<input type="submit" name="button" value="Submit">'
 			html = html + '<input type="submit" name="button" value="List">'
 			html = html + '</body></html>'
@@ -50,6 +50,7 @@ class MainHandlerDecision(webapp2.RequestHandler):
 			employee.put()
 			html = '<html><body>'
 			html = html + 'You entered ' + firstName + ' ' + lastName + '<br>'
+			html = html + self.addcomment()
 			html = html + '<form action="/" method="get">'
 			html = html + '<input type="submit" value="Back">'
 			html = html + '</body></html>'
@@ -57,6 +58,14 @@ class MainHandlerDecision(webapp2.RequestHandler):
 			#self.redirect("/submitclass")
 		if self.request.get('button') == "List" :
 			self.redirect("/listclass")
+	
+    def addcomment(self):
+		firstName = self.request.get('firstName')
+		lastName = self.request.get('lastName')
+		temp = 'This is addcomment function<br>'
+		html = 'You had entered ' + firstName + ' ' + lastName + '<br>'
+		temp = temp + html
+		return temp
 		
 class SubmitClass(webapp2.RequestHandler):
 	def get(self):	
